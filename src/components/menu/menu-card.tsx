@@ -1,5 +1,7 @@
 "use client";
 
+import Image from "next/image";
+import { useState } from "react";
 import Link from "next/link";
 import { ShoppingBag, Star } from "lucide-react";
 import { cn, formatCurrency } from "@/lib/utils";
@@ -12,6 +14,9 @@ interface MenuCardProps {
 
 export default function MenuCard({ item }: MenuCardProps) {
   const addItem = useCartStore((state) => state.addItem);
+  const [imageError, setImageError] = useState(false);
+
+  const hasImage = !!item.image && !imageError;
 
   const defaultVariants = (item.variants ?? [])
     .filter((v) => v.isDefault)
@@ -42,12 +47,25 @@ export default function MenuCard({ item }: MenuCardProps) {
       )}>
       {/* Image placeholder */}
       <div className="relative aspect-[4/3] w-full overflow-hidden">
-        <div className="absolute inset-0 gradient-coffee transition-transform duration-500 group-hover:scale-105" />
-        <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-sm font-medium text-cream-200/50 tracking-wider uppercase select-none">
-            {item.name}
-          </span>
-        </div>
+        {hasImage ? (
+          <Image
+            src={item.image}
+            alt={item.name}
+            fill
+            sizes="(max-width: 768px) 95vw, (max-width: 1200px) 33vw, 25vw"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={() => setImageError(true)}
+          />
+        ) : (
+          <>
+            <div className="absolute inset-0 gradient-coffee transition-transform duration-500 group-hover:scale-105" />
+            <div className="absolute inset-0 flex items-center justify-center">
+              <span className="text-sm font-medium text-cream-200/50 tracking-wider uppercase select-none">
+                {item.name}
+              </span>
+            </div>
+          </>
+        )}
 
         {/* Overlay on hover */}
         <div className="absolute inset-0 bg-gradient-to-t from-brown-900/30 via-transparent to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />

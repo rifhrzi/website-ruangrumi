@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import Image from "next/image";
+import { useState, useMemo, useEffect } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { ArrowLeft, Star, ShoppingBag, Plus, Minus } from "lucide-react";
@@ -15,6 +16,7 @@ export default function MenuDetailPage() {
   const item = menuItems.find((m) => m.slug === slug);
   const addItem = useCartStore((state) => state.addItem);
   const setCartOpen = useCartStore((state) => state.setCartOpen);
+  const [imageError, setImageError] = useState(false);
 
   // Variant selections
   const [selectedSize, setSelectedSize] = useState<string | null>(null);
@@ -30,6 +32,10 @@ export default function MenuDetailPage() {
   // Quantity and notes
   const [quantity, setQuantity] = useState(1);
   const [notes, setNotes] = useState("");
+
+  useEffect(() => {
+    setImageError(false);
+  }, [item?.image]);
 
   // Group variants by type
   const variantsByType = useMemo(() => {
@@ -229,11 +235,22 @@ export default function MenuDetailPage() {
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
         {/* Left: Image area */}
         <div className="relative overflow-hidden rounded-2xl">
-          <div className="gradient-coffee flex h-[300px] items-center justify-center sm:h-[400px] lg:h-[500px]">
-            <span className="text-lg font-medium text-cream-200/50 tracking-wider uppercase">
-              {item.name}
-            </span>
-          </div>
+          {item.image && !imageError ? (
+            <Image
+              src={item.image}
+              alt={item.name}
+              width={900}
+              height={500}
+              className="h-[300px] w-full object-cover sm:h-[400px] lg:h-[500px]"
+              onError={() => setImageError(true)}
+            />
+          ) : (
+            <div className="gradient-coffee flex h-[300px] items-center justify-center sm:h-[400px] lg:h-[500px]">
+              <span className="text-lg font-medium text-cream-200/50 tracking-wider uppercase">
+                {item.name}
+              </span>
+            </div>
+          )}
 
           {/* Badges */}
           <div className="absolute left-4 top-4 flex flex-col gap-2">

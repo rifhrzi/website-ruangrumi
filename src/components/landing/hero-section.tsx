@@ -1,194 +1,205 @@
 import Link from "next/link";
-import { ArrowRight, Coffee, Star, Sparkles } from "lucide-react";
+import { ArrowRight, Clock3, Coffee, Sparkles, Star } from "lucide-react";
 import { cn } from "@/lib/utils";
+
+const highlights = [
+  { value: "50+", label: "Curated menu items", icon: Coffee },
+  { value: "4.9", label: "Average guest rating", icon: Star },
+  { value: "10K+", label: "Happy guests served", icon: Sparkles },
+];
+
+const moments = [
+  {
+    title: "House Signature",
+    value: "Latte, pastry, and a slower pace",
+  },
+  {
+    title: "Open Daily",
+    value: "08.00 - 23.00",
+  },
+  {
+    title: "Best For",
+    value: "Quiet mornings, casual meetings, and weekend hangouts",
+  },
+];
 
 export default function HeroSection() {
   return (
     <section
-      className="relative flex min-h-[100dvh] items-center justify-center overflow-hidden"
+      className="relative overflow-hidden bg-brown-900"
       aria-label="Hero">
-      {/* Base gradient background */}
       <div className="absolute inset-0 gradient-coffee" aria-hidden="true" />
 
-      {/* Animated gradient overlay */}
       <div
-        className="absolute inset-0 opacity-40 animate-gradient-shift"
+        className="absolute inset-0 opacity-60"
         style={{
           backgroundImage:
-            "linear-gradient(135deg, #2A1F17 0%, #4A3728 25%, #6B4423 50%, #3D2E22 75%, #2A1F17 100%)",
-          backgroundSize: "400% 400%",
+            "radial-gradient(circle at 18% 22%, rgba(212,175,55,0.18) 0%, transparent 32%), radial-gradient(circle at 82% 18%, rgba(250,247,244,0.08) 0%, transparent 26%), radial-gradient(circle at 70% 75%, rgba(201,169,110,0.14) 0%, transparent 32%)",
         }}
         aria-hidden="true"
       />
 
-      {/* Grain texture overlay for premium feel */}
       <div
-        className="absolute inset-0 opacity-[0.035] mix-blend-overlay"
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundSize: "128px 128px",
-        }}
-        aria-hidden="true"
-      />
-
-      {/* Radial spotlight effects */}
-      <div
-        className="absolute inset-0"
+        className="absolute inset-0 opacity-[0.06] mix-blend-screen"
         style={{
           backgroundImage:
-            "radial-gradient(ellipse 60% 50% at 30% 40%, rgba(201,169,110,0.12) 0%, transparent 70%), radial-gradient(ellipse 50% 60% at 75% 30%, rgba(150,115,74,0.08) 0%, transparent 70%), radial-gradient(ellipse 40% 40% at 50% 90%, rgba(212,175,55,0.06) 0%, transparent 60%)",
+            "linear-gradient(rgba(255,255,255,0.18) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.18) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
         }}
         aria-hidden="true"
       />
 
-      {/* Dark overlay for text readability */}
-      <div className="absolute inset-0 bg-brown-900/40" aria-hidden="true" />
+      <div className="relative mx-auto max-w-7xl px-4 py-20 sm:px-6 sm:py-24 lg:px-8 lg:py-28">
+        <div className="grid items-center gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(320px,0.9fr)] lg:gap-16">
+          <div className="max-w-3xl text-center lg:text-left">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/12 bg-white/8 px-4 py-2 text-sm font-medium text-cream-100/90 backdrop-blur-md">
+              <Sparkles className="h-4 w-4 text-gold-400" aria-hidden="true" />
+              <span>Premium Cafe Experience</span>
+            </div>
 
-      {/* Floating decorative elements - enhanced */}
-      <div
-        className="absolute left-10 top-1/4 h-72 w-72 rounded-full bg-gold-500/8 blur-3xl animate-float-gentle"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute right-10 bottom-1/4 h-96 w-96 rounded-full bg-coffee-500/6 blur-3xl animate-float-gentle animation-delay-400"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute left-1/3 top-1/6 h-48 w-48 rounded-full bg-gold-400/6 blur-2xl animate-pulse-soft"
-        aria-hidden="true"
-      />
-      <div
-        className="absolute right-1/4 bottom-1/3 h-56 w-56 rounded-full bg-cream-200/5 blur-2xl animate-pulse-soft animation-delay-200"
-        aria-hidden="true"
-      />
+            <h1 className="mx-auto mt-6 max-w-[11ch] text-5xl font-semibold leading-[0.95] tracking-[-0.05em] text-cream-50 sm:text-6xl lg:mx-0 lg:text-7xl xl:text-[5.5rem]">
+              Where Every Sip
+              <span className="mt-2 block text-gold-400">Tells a Story</span>
+            </h1>
 
-      {/* Decorative geometric accents */}
-      <div className="absolute left-[15%] top-[20%] h-px w-24 bg-gradient-to-r from-transparent via-gold-400/20 to-transparent rotate-45 animate-pulse-soft" aria-hidden="true" />
-      <div className="absolute right-[20%] top-[35%] h-px w-32 bg-gradient-to-r from-transparent via-cream-200/15 to-transparent -rotate-12 animate-pulse-soft animation-delay-300" aria-hidden="true" />
-      <div className="absolute left-[10%] bottom-[30%] h-px w-20 bg-gradient-to-r from-transparent via-gold-500/15 to-transparent rotate-[30deg] animate-pulse-soft animation-delay-500" aria-hidden="true" />
+            <p className="mx-auto mt-6 max-w-2xl text-base leading-8 text-cream-100/78 sm:text-lg lg:mx-0">
+              Handcrafted coffee, warm interiors, and a menu built for slow
+              mornings, easy conversations, and evenings that stay a little
+              longer.
+            </p>
 
-      {/* Content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-32 sm:px-6 lg:px-8">
-        <div className="flex flex-col items-center text-center">
-          {/* Badge - with shimmer effect */}
-          <div className="animate-fade-in-up mb-8 inline-flex items-center gap-2 rounded-full border border-gold-500/20 bg-brown-900/40 px-5 py-2.5 backdrop-blur-xl animate-glow-pulse">
-            <Sparkles className="h-4 w-4 text-gold-400" aria-hidden="true" />
-            <span className="text-sm font-medium tracking-wide text-shimmer">
-              Premium Cafe Experience
-            </span>
-            <Star
-              className="h-3 w-3 fill-gold-400 text-gold-400"
+            <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row lg:items-start">
+              <Link
+                href="/menu"
+                className={cn(
+                  "inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold",
+                  "bg-gold-400 text-brown-900 shadow-lg shadow-gold-500/20 transition-all duration-300",
+                  "hover:bg-gold-500 hover:shadow-xl hover:shadow-gold-500/30",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brown-900",
+                )}>
+                Explore Menu
+                <ArrowRight className="h-4 w-4" aria-hidden="true" />
+              </Link>
+
+              <Link
+                href="/reservation"
+                className={cn(
+                  "inline-flex items-center justify-center rounded-full px-7 py-3.5 text-sm font-semibold",
+                  "border border-white/15 bg-white/6 text-cream-50 backdrop-blur-md transition-all duration-300",
+                  "hover:border-gold-400/40 hover:bg-white/10",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-100 focus-visible:ring-offset-2 focus-visible:ring-offset-brown-900",
+                )}>
+                Reserve a Table
+              </Link>
+            </div>
+
+            <div className="mt-12 grid grid-cols-1 gap-3 sm:grid-cols-3">
+              {highlights.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={item.label}
+                    className="rounded-2xl border border-white/10 bg-white/6 px-4 py-4 backdrop-blur-md">
+                    <Icon
+                      className="mx-auto h-4 w-4 text-gold-400 lg:mx-0"
+                      aria-hidden="true"
+                    />
+                    <p className="mt-3 text-2xl font-semibold tracking-tight text-cream-50">
+                      {item.value}
+                    </p>
+                    <p className="mt-1 text-sm text-cream-100/68">
+                      {item.label}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
+          <div className="relative">
+            <div
+              className="absolute inset-0 scale-105 rounded-[2rem] bg-gold-500/12 blur-3xl"
               aria-hidden="true"
             />
-          </div>
 
-          {/* Headline - with Playfair Display */}
-          <h1 className="animate-fade-in-up animation-delay-100 max-w-4xl text-balance font-heading text-5xl font-bold leading-[1.1] tracking-tight text-cream-50 sm:text-6xl md:text-7xl lg:text-8xl">
-            Where Every Sip{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10 text-shimmer">
-                Tells a Story
-              </span>
-              {/* Animated underline glow */}
-              <span
-                className="absolute -bottom-2 left-0 right-0 h-[3px] rounded-full bg-gradient-to-r from-gold-400/0 via-gold-400 to-gold-400/0 animate-pulse-soft"
+            <div className="relative overflow-hidden rounded-[2rem] border border-white/12 bg-white/7 p-5 backdrop-blur-xl sm:p-6">
+              <div
+                className="absolute inset-0 opacity-60"
+                style={{
+                  backgroundImage:
+                    "linear-gradient(140deg, rgba(255,255,255,0.14) 0%, transparent 34%, rgba(212,175,55,0.12) 100%)",
+                }}
                 aria-hidden="true"
               />
-              <span
-                className="absolute -bottom-2 left-0 right-0 h-4 bg-gold-500/10 blur-md"
-                aria-hidden="true"
-              />
-            </span>
-          </h1>
 
-          {/* Sub-headline */}
-          <p className="animate-fade-in-up animation-delay-200 mt-8 max-w-2xl text-balance text-lg leading-relaxed text-cream-200/80 sm:text-xl">
-            Experience the art of handcrafted coffee in a space designed for
-            comfort, conversation, and creativity. From single-origin beans to
-            artisan pastries, every detail is curated with care.
-          </p>
-
-          {/* CTA Buttons - enhanced */}
-          <div className="animate-fade-in-up animation-delay-300 mt-12 flex flex-col gap-4 sm:flex-row sm:gap-5">
-            <Link
-              href="/menu"
-              className={cn(
-                "group inline-flex items-center justify-center gap-2.5 rounded-full px-9 py-4",
-                "bg-gradient-to-r from-gold-500 to-gold-400 text-brown-900 font-semibold text-base",
-                "transition-all duration-300",
-                "shadow-lg shadow-gold-500/20",
-                "hover:shadow-xl hover:shadow-gold-500/35 hover:scale-[1.03]",
-                "active:scale-[0.98]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-400 focus-visible:ring-offset-2 focus-visible:ring-offset-brown-900",
-              )}>
-              Order Sekarang
-              <ArrowRight
-                className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                aria-hidden="true"
-              />
-            </Link>
-            <Link
-              href="/reservation"
-              className={cn(
-                "group inline-flex items-center justify-center gap-2.5 rounded-full px-9 py-4",
-                "border border-cream-200/20 text-cream-50 font-semibold text-base",
-                "backdrop-blur-md transition-all duration-300",
-                "hover:border-gold-400/40 hover:bg-gold-400/5 hover:scale-[1.03]",
-                "active:scale-[0.98]",
-                "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cream-200 focus-visible:ring-offset-2 focus-visible:ring-offset-brown-900",
-              )}>
-              Reservasi Meja
-            </Link>
-          </div>
-
-          {/* Stats row - enhanced with icons and glowing dividers */}
-          <div className="animate-fade-in-up animation-delay-500 mt-20 grid grid-cols-3 gap-8 sm:gap-16">
-            {[
-              { value: "50+", label: "Menu Items", icon: Coffee },
-              { value: "4.9", label: "Rating", icon: Star },
-              { value: "10K+", label: "Happy Guests", icon: Sparkles },
-            ].map((stat, index) => {
-              const Icon = stat.icon;
-              return (
-                <div key={stat.label} className="relative flex flex-col items-center">
-                  {/* Glowing divider line */}
-                  {index > 0 && (
-                    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 sm:-translate-x-8 h-12 w-px bg-gradient-to-b from-transparent via-gold-400/30 to-transparent" aria-hidden="true" />
-                  )}
-                  <Icon className="mb-2 h-4 w-4 text-gold-400/60" aria-hidden="true" />
-                  <span className="text-2xl font-bold font-heading text-gold-400 sm:text-3xl lg:text-4xl">
-                    {stat.value}
-                  </span>
-                  <span className="mt-1.5 text-xs text-cream-300/60 sm:text-sm tracking-wide">
-                    {stat.label}
-                  </span>
+              <div className="relative flex items-start justify-between gap-4 rounded-[1.5rem] border border-white/10 bg-brown-900/35 p-5">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.28em] text-cream-100/55">
+                    Ruang Rumi
+                  </p>
+                  <h2 className="mt-3 text-2xl font-semibold tracking-tight text-cream-50 sm:text-3xl">
+                    A space built for comfort and conversation
+                  </h2>
                 </div>
-              );
-            })}
+                <div className="rounded-full border border-gold-400/20 bg-gold-400/12 p-3">
+                  <Coffee className="h-5 w-5 text-gold-400" aria-hidden="true" />
+                </div>
+              </div>
+
+              <div className="relative mt-4 grid gap-4 sm:grid-cols-2">
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/7 p-5">
+                  <p className="text-xs uppercase tracking-[0.24em] text-cream-100/55">
+                    Signature Mood
+                  </p>
+                  <p className="mt-3 text-lg font-medium leading-8 text-cream-50">
+                    Soft lighting, warm wood tones, and tables that invite you
+                    to stay.
+                  </p>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-white/10 bg-brown-900/35 p-5">
+                  <div className="flex items-center gap-2 text-gold-400">
+                    <Clock3 className="h-4 w-4" aria-hidden="true" />
+                    <p className="text-xs uppercase tracking-[0.24em] text-cream-100/55">
+                      Today
+                    </p>
+                  </div>
+                  <p className="mt-3 text-3xl font-semibold tracking-tight text-cream-50">
+                    08.00 - 23.00
+                  </p>
+                  <p className="mt-2 text-sm leading-6 text-cream-100/68">
+                    Coffee bar, dine-in service, and table reservations.
+                  </p>
+                </div>
+
+                <div className="rounded-[1.5rem] border border-white/10 bg-white/7 p-5 sm:col-span-2">
+                  <div className="grid gap-4 sm:grid-cols-3">
+                    {moments.map((item) => (
+                      <div key={item.title}>
+                        <p className="text-xs uppercase tracking-[0.24em] text-cream-100/55">
+                          {item.title}
+                        </p>
+                        <p className="mt-2 text-sm leading-7 text-cream-50/88">
+                          {item.value}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom fade */}
       <div
-        className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-cream-50 via-cream-50/50 to-transparent"
+        className="absolute inset-x-0 bottom-12 h-16 bg-gradient-to-b from-transparent via-cream-50/10 to-cream-50/35"
         aria-hidden="true"
       />
-
-      {/* Scroll indicator - enhanced with bounce */}
       <div
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-fade-in animation-delay-700"
-        aria-hidden="true">
-        <div className="flex flex-col items-center gap-2">
-          <span className="text-[10px] uppercase tracking-[0.25em] text-cream-300/40 font-medium">
-            Scroll
-          </span>
-          <div className="relative h-10 w-[1.5px]">
-            <div className="absolute inset-0 bg-gradient-to-b from-cream-300/40 to-transparent" />
-            <div className="absolute top-0 left-0 h-4 w-full bg-gradient-to-b from-gold-400/60 to-transparent" style={{ animation: 'scroll-bounce 2s ease-in-out infinite' }} />
-          </div>
-        </div>
-      </div>
+        className="absolute inset-x-0 bottom-0 h-16 bg-cream-50 [clip-path:ellipse(78%_100%_at_50%_100%)]"
+        aria-hidden="true"
+      />
     </section>
   );
 }

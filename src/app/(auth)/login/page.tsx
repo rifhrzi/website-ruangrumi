@@ -1,14 +1,16 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { type FormEvent, useCallback, useState } from "react";
 import Link from "next/link";
 import { Mail, Lock, Eye, EyeOff, Coffee } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-interface FormErrors {
+type FormErrors = {
   email?: string;
   password?: string;
-}
+};
+
+type LoginField = "email" | "password";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -17,7 +19,10 @@ export default function LoginPage() {
   const [rememberMe, setRememberMe] = useState(false);
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [touched, setTouched] = useState<Record<LoginField, boolean>>({
+    email: false,
+    password: false,
+  });
 
   const validateEmail = useCallback((value: string): string | undefined => {
     if (!value.trim()) return "Email is required";
@@ -41,7 +46,7 @@ export default function LoginPage() {
     return !newErrors.email && !newErrors.password;
   }, [email, password, validateEmail, validatePassword]);
 
-  const handleBlur = (field: string) => {
+  const handleBlur = (field: LoginField) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
     if (field === "email") {
       setErrors((prev) => ({ ...prev, email: validateEmail(email) }));
@@ -51,7 +56,7 @@ export default function LoginPage() {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTouched({ email: true, password: true });
 

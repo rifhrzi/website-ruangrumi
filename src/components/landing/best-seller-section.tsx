@@ -114,7 +114,7 @@ function BestSellerCard({
 export default function BestSellerSection() {
   return (
     <AnimatedSection
-      className="relative overflow-hidden bg-cream-50 py-20 sm:py-28"
+      className="relative overflow-hidden bg-cream-50 pb-20 pt-12 sm:pb-28 sm:pt-16"
       ariaLabelledby="best-sellers-heading">
       {/* Decorative background elements - enhanced */}
       <div

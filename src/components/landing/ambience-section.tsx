@@ -118,7 +118,7 @@ export default function AmbienceSection() {
         {/* Image Grid */}
         <div
           ref={gridRef}
-          className="mt-14 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-4 md:grid-rows-2 auto-rows-[200px] md:auto-rows-[180px]">
+          className="mt-14 grid grid-cols-1 gap-4 auto-rows-[200px] sm:grid-cols-2 md:grid-cols-4 md:auto-rows-[180px] md:grid-flow-dense">
           {spaces.map((space, index) => {
             const Icon = space.icon;
             return (

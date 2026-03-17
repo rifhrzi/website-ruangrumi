@@ -16,6 +16,7 @@ import {
 import { menuItems, menuCategories } from "@/lib/data/menu";
 import { cn, formatCurrency } from "@/lib/utils";
 import type { MenuItem } from "@/lib/types";
+import Image from "next/image";
 
 type ViewMode = "grid" | "table";
 
@@ -43,6 +44,7 @@ export default function MenuManagementPage() {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [availabilityFilter, setAvailabilityFilter] = useState("all");
   const [items, setItems] = useState(menuItems);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Modal state
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -70,6 +72,14 @@ export default function MenuManagementPage() {
 
   const getCategoryName = (categoryId: string) => {
     return menuCategories.find((c) => c.id === categoryId)?.name || "Unknown";
+  };
+
+  const hasImage = (item: MenuItem) => {
+    return !!item.image && !imageErrors[item.id];
+  };
+
+  const markImageError = (id: string) => {
+    setImageErrors((prev) => (prev[id] ? prev : { ...prev, [id]: true }));
   };
 
   const toggleAvailability = (itemId: string) => {
@@ -261,9 +271,22 @@ export default function MenuManagementPage() {
               className="group overflow-hidden rounded-xl border border-cream-200 bg-white shadow-sm transition-shadow hover:shadow-md">
               {/* Image Placeholder */}
               <div className="relative aspect-[4/3] bg-cream-100">
-                <div className="flex h-full items-center justify-center">
-                  <span className="text-sm text-charcoal-700/30">No Image</span>
-                </div>
+                {hasImage(item) ? (
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 640px) 95vw, (max-width: 1024px) 48vw, 23vw"
+                    className="object-cover"
+                    onError={() => markImageError(item.id)}
+                  />
+                ) : (
+                  <div className="flex h-full items-center justify-center">
+                    <span className="text-sm text-charcoal-700/30">
+                      No Image
+                    </span>
+                  </div>
+                )}
                 {item.isBestSeller && (
                   <div className="absolute top-2 left-2 inline-flex items-center gap-1 rounded-full bg-gold-400 px-2.5 py-0.5 text-xs font-semibold text-white shadow">
                     <Star className="h-3 w-3 fill-current" />
@@ -374,10 +397,23 @@ export default function MenuManagementPage() {
                       key={item.id}
                       className="transition-colors hover:bg-cream-50/60">
                       <td className="px-4 py-3">
-                        <div className="h-10 w-10 rounded-lg bg-cream-100 flex items-center justify-center">
-                          <span className="text-[8px] text-charcoal-700/30">
-                            IMG
-                          </span>
+                        <div className="relative h-10 w-10 overflow-hidden rounded-lg bg-cream-100">
+                          {hasImage(item) ? (
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              fill
+                              sizes="40px"
+                              className="object-cover"
+                              onError={() => markImageError(item.id)}
+                            />
+                          ) : (
+                            <div className="flex h-full w-full items-center justify-center">
+                              <span className="text-[8px] text-charcoal-700/30">
+                                IMG
+                              </span>
+                            </div>
+                          )}
                         </div>
                       </td>
                       <td className="px-4 py-3">
